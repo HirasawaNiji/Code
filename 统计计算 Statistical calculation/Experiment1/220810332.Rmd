@@ -1,0 +1,34 @@
+---
+title: '220810332'
+author: "sipeng"
+date: "2024/9/19"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## SiPeng test on class No.1
+
+
+
+```{r cars}
+vec = rep(1:5,length.out = 10) 
+vec 
+matrix_empty <- matrix(nrow = 2,ncol = 2) 
+matrix_empty[,1]<-c(1,2) 
+matrix_empty[,2]<-c(3,4) 
+matrix_empty 
+#method1 use sum function 
+sum_1 <- sum(1:100) 
+sum_1 
+#method2 use for 
+sum_2 <- 0 
+for (i in 1:100) { sum_2 <- sum_2 + i } 
+sum_2
+
+```
+
