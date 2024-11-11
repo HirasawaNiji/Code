@@ -1,0 +1,48 @@
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score, confusion_matrix
+
+# 读取财务数据
+df = pd.read_csv('financial_data.csv')
+
+# 选择特征和标签
+features = df[['LDBL', 'ZCFZL', 'CHZZL', 'ZCBCL', 'YSZKZZL']]
+labels = df['FLAG']
+
+# 划分训练集和测试集
+X_train, X_test, y_train, y_test = train_test_split(
+    features, labels, test_size=0.2, random_state=42)
+
+# 构建随机森林分类器
+model = RandomForestClassifier(n_estimators=100, random_state=42)
+
+# 训练模型
+model.fit(X_train, y_train)
+
+# 在测试集上进行预测
+predictions = model.predict(X_test)
+
+# 评估模型性能
+accuracy = accuracy_score(y_test, predictions)
+conf_matrix = confusion_matrix(y_test, predictions)
+
+print(f'Accuracy: {accuracy}')
+print('Confusion Matrix:')
+print(conf_matrix)
+
+# 读取新的财务数据
+df_new = pd.read_csv('financial_data_new.csv')
+
+# 选择特征
+features_new = df_new[['LDBL', 'ZCFZL', 'CHZZL', 'ZCBCL', 'YSZKZZL']]
+
+# 使用模型进行预测
+predictions_new = model.predict(features_new)
+
+# 输出预测结果
+df_new['Predicted_FLAG'] = predictions_new
+fraudulent_company = df_new[df_new['Predicted_FLAG'] == 1]
+
+print('\n预测结果:')
+print(fraudulent_company)
